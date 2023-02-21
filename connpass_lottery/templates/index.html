@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="d-flex align-items-center justify-content-center">
+    <form action="/lottery" method="POST">
+        <div>
+            <button type="submit" class="btn btn-primary">抽選</button>
+        </div>
+    </form>
+</div>
+
+<div class="d-flex align-items-center justify-content-center">
+    <p class="display-1 text-center">{{ number }}</p>
+</div>
+
+<div class="d-flex align-items-center justify-content-center">
+    <p class="display-1 text-center bg-info">{{ name }}</p>
+</div>
+
+<a href="/participant_list">参加者一覧</a>
+
+{% endblock %}

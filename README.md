@@ -1,1 +1,1 @@
-# connpass_lottery
+# connpass lottery
