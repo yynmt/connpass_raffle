@@ -48,6 +48,7 @@ class Raffle:
                 self.__winner_list.append(tmp_part)
 
         logger.debug('Load: {}'.format(self.__csv_path))
+        # 参加者の読み込み
         # connpassからダウンロードできるcsvファイルはShift-JIS
         with open(self.__csv_path, encoding='cp932') as f:
             reader = csv.reader(f)
@@ -78,10 +79,11 @@ class Raffle:
     def pick(self):
         # 参加者リストからランダムに選ぶ
         idx = random.randrange(0, len(self.__participant_list))
+        # 参加者リストから当選者をpopして削除
         winner = self.__participant_list.pop(idx)
-        print(self.__winner_list)
+        # popした当選者リストに追加
         self.__winner_list.append(winner)
-        print(self.__winner_list)
+        # 当選者リストの保存
         self.__save()
 
         return winner
@@ -94,17 +96,17 @@ class Raffle:
             rows = []
             for part in self.__winner_list:
                 row = [
-                    part.frame_name,
-                    part.user_name,
-                    part.display_name,
-                    part.start_date,
-                    part.comment,
-                    part.status_part,
-                    part.status_att,
-                    part.paypal_id,
-                    part.invoice_id,
-                    part.update_time,
-                    str(part.rcpt_number)
+                    part.frame_name,        # 参加枠
+                    part.user_name,         # ユーザー名
+                    part.display_name,      # 表示名
+                    part.start_date,        # 利用開始日
+                    part.comment,           # コメント
+                    part.status_part,       # 参加ステータス
+                    part.status_att,        # 出欠ステータス
+                    part.paypal_id,         # PayPal取引ID
+                    part.invoice_id,        # 請求書ID
+                    part.update_time,       # 更新日時
+                    str(part.rcpt_number)   # 受付番号
                 ]
                 rows.append(row)
 
