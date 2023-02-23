@@ -35,8 +35,8 @@ class Core:
                 part.rcpt_number
             ])
 
-        sum = len(raffle.participant_list)
-        return render_template('participant_list.html', part_list=part_list, sum=sum)
+        sum_part = len(raffle.participant_list)
+        return render_template('participant_list.html', part_list=part_list, sum=sum_part)
 
     @staticmethod
     @app.route('/winner_list')
@@ -48,8 +48,8 @@ class Core:
                 part.display_name,
                 part.rcpt_number
             ])
-        sum = len(raffle.winner_list)
-        return render_template('winner_list.html', part_list=part_list, sum=sum)
+        sum_part = len(raffle.winner_list)
+        return render_template('winner_list.html', part_list=part_list, sum=sum_part)
 
     @staticmethod
     @app.route('/raffle', methods=['GET', 'POST'])
