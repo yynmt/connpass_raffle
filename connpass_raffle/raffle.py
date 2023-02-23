@@ -65,12 +65,7 @@ class Raffle:
                     continue
 
                 # 当選者に含まれているため除外
-                flag = False
-                for tmp_win in self.__winner_list:
-                    if tmp_win.user_name == tmp_part.user_name:
-                        flag = True
-                        continue
-                if flag:
+                if tmp_part in self.__winner_list:
                     continue
 
                 # リストに参加者を追加

@@ -51,3 +51,11 @@ class Participant:
         self.update_time = row[9]
         # 受付番号
         self.rcpt_number = row[10]
+
+    def __eq__(self, other):
+        if not isinstance(other, Participant):
+            return NotImplemented
+        return self.user_name == other.user_name
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
