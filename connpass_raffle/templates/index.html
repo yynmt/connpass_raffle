@@ -20,6 +20,7 @@ footer {
     position: sticky;
     top: 100vh;
     width: 100%;
+    margin: 10;
 }
 
 .rand_name {
@@ -69,8 +70,10 @@ $(function(){
 
     // ストップボタンでシャッフルを停止
     $('.stop').click(function(){
+        $('.rand_name').hide();
         $('.rand_name').text(name);             // 当選者の名前を表示
         clearInterval(randStart);               // シャッフル停止
+        $('.rand_name').fadeIn(250);
         $(this).prop("disabled", true);         // ストップボタン無効化
         $('.start').prop("disabled", false);    // スタートボタン有効化
     });
@@ -83,11 +86,11 @@ $(function(){
             <div class="row">
                 <div class="col"></div>
                 <div class="col-4 py-5 px-0">
-                    <button type="submit" class="start btn btn-primary w-100 h-100">スタート</button>
+                    <button type="submit" class="start btn btn-primary btn-lg w-100 h-100 py-5">スタート</button>
                 </div>
                 <div class="col"></div>
                 <div class="col-4 py-5 px-0">
-                    <button type="button" class="stop btn btn-primary w-100 h-100 py-3">ストップ</button>
+                    <button type="button" class="stop btn btn-primary btn-lg w-100 h-100 py-5">ストップ</button>
                 </div>
                 <div class="col"></div>
             </div>
@@ -95,11 +98,20 @@ $(function(){
     </div>
 </header>
 
+<!-- 当選者名表示部分 -->
 <div class="d-flex align-items-center justify-content-center display-1 text-center h-75 w-100 rand_name">
+
 </div>
 
 <footer>
-    <a href="/participant_list">参加者一覧</a> <a href="/winner_list">当選者一覧</a>
+    <div class="container-fluid">
+        <a href="/participant_list" class="badge bg-secondary mx-2 my-3 p-2">
+            <i class="bi bi-list-ul"></i> 抽選対象者一覧
+        </a>
+        <a href="/winner_list" class="badge bg-secondary mx-2 my-3 p-2">
+            <i class="bi bi-list-stars"></i> 当選者一覧
+        </a>
+    </div>
 </footer>
 
 {% endblock %}

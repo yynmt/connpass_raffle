@@ -6,6 +6,16 @@ html {
     height: 100%;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+header {
+    width: 100%;
+}
+
 footer {
     position: sticky;
     top: 100vh;
@@ -16,29 +26,42 @@ footer {
 
 {% block body %}
 
-データ数: {{ sum }}
+<header>
+    <div class="container">
+        <a href="/" class="btn btn-block btn-primary btn-default mx-2 my-3">
+            <i class="bi bi-arrow-left-circle-fill"></i> 戻る
+        </a>
+    </div>
+</header>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">ユーザー名</th>
-            <th scope="col">表示名</th>
-            <th scope="col">受付番号</th>
-        </tr>
-    </thead>
-    <tbody>
-{% for i in part_list %}
-        <tr>
-    {% for j in i %}
-            <td>{{ j }}</td>
-    {% endfor %}
-        </tr>
-{% endfor %}
-    </tbody>
-</table>
+<div class="container">
+    <h3> 当選者数: <span class="badge bg-dark rounded-pill">{{ sum }}</span></h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ユーザー名</th>
+                <th scope="col">表示名</th>
+                <th scope="col">受付番号</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in part_list %}
+            <tr>
+                {% for j in i %}
+                <td>{{ j }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 <footer>
-<a href="/">戻る</a>
+    <div class="container">
+        <a href="/" class="btn btn-block btn-primary btn-default mx-2 my-3">
+            <i class="bi bi-arrow-left-circle-fill"></i> 戻る
+        </a>
+    </div>
 </footer>
 
 {% endblock %}
