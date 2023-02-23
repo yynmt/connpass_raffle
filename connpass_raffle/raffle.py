@@ -34,18 +34,19 @@ class Raffle:
         self.__participant_list = []
         self.__winner_list = []
 
-        logger.debug('Load: {}'.format(self.__winner_csv_path))
-        # 当選者の読み込み
-        with open(self.__winner_csv_path, encoding='cp932') as f:
-            reader = csv.reader(f)
+        if Path(self.__winner_csv_path).is_file():
+            logger.debug('Load: {}'.format(self.__winner_csv_path))
+            # 当選者の読み込み
+            with open(self.__winner_csv_path, encoding='cp932') as f:
+                reader = csv.reader(f)
 
-            # 1行ずつ読み込み
-            for row in reader:
-                tmp_part = Participant()
-                tmp_part.from_cvs_row(row)
+                # 1行ずつ読み込み
+                for row in reader:
+                    tmp_part = Participant()
+                    tmp_part.from_cvs_row(row)
 
-                # リストに参加者を追加
-                self.__winner_list.append(tmp_part)
+                    # リストに参加者を追加
+                    self.__winner_list.append(tmp_part)
 
         logger.debug('Load: {}'.format(self.__csv_path))
         # 参加者の読み込み
