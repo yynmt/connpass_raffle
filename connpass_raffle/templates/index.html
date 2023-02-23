@@ -1,35 +1,5 @@
 {% extends 'base.html' %}
 
-{% block head %}
-<style>
-html {
-    height: 100%;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-}
-
-header {
-    width: 100%;
-}
-
-footer {
-    position: sticky;
-    top: 100vh;
-    width: 100%;
-    margin: 10;
-}
-
-.rand_name {
-    font-size: clamp(12px,8vw,500px);
-}
-
-</style>
-{% endblock %}
-
 {% block body %}
 
 <script>
@@ -86,11 +56,11 @@ $(function(){
             <div class="row">
                 <div class="col"></div>
                 <div class="col-4 py-5 px-0">
-                    <button type="submit" class="start btn btn-primary btn-lg w-100 h-100 py-5">スタート</button>
+                    <button type="submit" class="start btn btn-secondary btnx btn-lg fs-1 w-100 h-100 py-5">スタート</button>
                 </div>
                 <div class="col"></div>
                 <div class="col-4 py-5 px-0">
-                    <button type="button" class="stop btn btn-primary btn-lg w-100 h-100 py-5">ストップ</button>
+                    <button type="button" class="stop btn btn-secondary btnx btn-lg fs-1 w-100 h-100 py-5">ストップ</button>
                 </div>
                 <div class="col"></div>
             </div>
