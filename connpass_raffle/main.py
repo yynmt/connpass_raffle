@@ -19,18 +19,18 @@ def setup_logger():
             'root': {
                 'level': 'DEBUG',
                 'handlers': [
-                    'consoleHnadler',
-                    'logFileHnadler',
+                    'consoleHandler',
+                    'logFileHandler',
                 ]
             },
             'handlers': {
-                'consoleHnadler': {
+                'consoleHandler': {
                     'class': 'logging.StreamHandler',
                     'level': 'DEBUG',
                     'formatter': 'consoleFormatter',
                     'stream': 'ext://sys.stdout'
                 },
-                'logFileHnadler': {
+                'logFileHandler': {
                     'class': 'logging.FileHandler',
                     'level': 'DEBUG',
                     'formatter': 'logFileFormatter',
