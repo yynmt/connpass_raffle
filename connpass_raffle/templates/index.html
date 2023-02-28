@@ -68,19 +68,38 @@ $(function(){
     </div>
 </header>
 
-<!-- 当選者名表示部分 -->
-<div class="d-flex align-items-center justify-content-center display-1 text-center h-75 w-100 rand_name">
+    {% if item %}
+    <!-- 当選景品名表示部分 -->
+    <div class="item d-flex align-items-center justify-content-center w-100 display-2 text-center">{{ item }}</div>
+    <div class="provider d-flex align-items-center justify-content-center w-100 display-3 text-center">by {{ provider }}</div>
+    {% endif %}
 
+<div class="center-block d-flex align-items-center justify-content-center display-1 rand_name">
+    <!-- 当選者名表示部分 -->
 </div>
 
 <footer>
     <div class="container-fluid">
-        <a href="/participant_list" class="badge bg-secondary mx-2 my-3 p-2">
-            <i class="bi bi-list-ul"></i> 抽選対象者一覧
-        </a>
-        <a href="/winner_list" class="badge bg-secondary mx-2 my-3 p-2">
-            <i class="bi bi-list-stars"></i> 当選者一覧
-        </a>
+        <div class="row">
+            <div class="col-1">
+                <a href="/participant_list" class="badge bg-secondary mx-2 my-3 p-2">
+                    <i class="bi bi-list-ul"></i> 抽選対象者一覧
+                </a>
+            </div>
+            <div class="col-1">
+                <a href="/winner_list" class="badge bg-secondary mx-2 my-3 p-2">
+                    <i class="bi bi-list-stars"></i> 当選者一覧
+                </a>
+            </div>
+            <div class="col-9"></div>
+
+            <div class="col-1">
+            {% if id %}
+                <a href="/rm/{{ id }}" class="badge bg-secondary mx-2 my-3 p-2">
+                    <i class="bi bi-trash-fill"></i> 最後の抽選を取り消す
+                </a>
+            {% endif %}
+            </div>
     </div>
 </footer>
 

@@ -4,20 +4,25 @@ import re
 import logging
 from pathlib import Path
 from participant import Participant
+from item import Item
 
 logger = logging.getLogger(__name__)
 
 
 class Raffle:
-    def __init__(self, csv_path):
+    def __init__(self, part_csv_path, item_csv_path):
         # 参加者一覧のリスト
         self.__participant_list = []
         # 当選者のリスト
         self.__winner_list = []
-        # connpassから取得できるCSVファイルのパス
-        self.__csv_path = csv_path
+        # Connpassから取得できるCSVファイルのパス
+        self.__part_csv_path = part_csv_path
         # 当選者を保存するCSVファイルのパス
-        self.__winner_csv_path = re.sub(r'\..+$', '_win.csv', str((Path(self.__csv_path).absolute())))
+        self.__winner_csv_path = re.sub(r'\..+$', '_win.csv', str((Path(self.__part_csv_path).absolute())))
+        # 抽選対象のアイテムのリスト
+        self.__item_list = []
+        # 抽選対象のアイテムのCSVファイルのパス
+        self.__item_csv_path = item_csv_path
 
         # 各CSVファイルのロード
         self.__load()
@@ -30,9 +35,14 @@ class Raffle:
     def winner_list(self):
         return self.__winner_list
 
+    @property
+    def item_list(self):
+        return self.__item_list
+
     def __load(self):
         self.__participant_list = []
         self.__winner_list = []
+        self.__item_list = []
 
         if Path(self.__winner_csv_path).is_file():
             logger.debug('Load: {}'.format(self.__winner_csv_path))
@@ -48,10 +58,10 @@ class Raffle:
                     # リストに参加者を追加
                     self.__winner_list.append(tmp_part)
 
-        logger.debug('Load: {}'.format(self.__csv_path))
         # 参加者の読み込み
-        # connpassからダウンロードできるcsvファイルはShift-JIS
-        with open(self.__csv_path, encoding='cp932') as f:
+        # ConnpassからダウンロードできるcsvファイルはShift-JIS
+        with open(self.__part_csv_path, encoding='cp932') as f:
+            logger.debug('Load: {}'.format(self.__part_csv_path))
             reader = csv.reader(f)
             # 1行目のヘッダーをスキップ
             next(reader)
@@ -72,6 +82,21 @@ class Raffle:
                 # リストに参加者を追加
                 self.__participant_list.append(tmp_part)
 
+        with open(self.__item_csv_path, encoding='cp932') as f:
+            logger.debug('Load: {}'.format(self.__item_csv_path))
+            reader = csv.reader(f)
+            # 1行目のヘッダーをスキップ
+            next(reader)
+
+            # 1行ずつ読み込み
+            for row in reader:
+                tmp_item = Item()
+                tmp_item.provider = row[0]
+                tmp_item.name = row[1]
+
+                # リストにアイテムを追加
+                self.__item_list.append(tmp_item)
+
     def pick(self):
         # 参加者リストからランダムに選ぶ
         idx = random.randrange(0, len(self.__participant_list))
@@ -83,6 +108,14 @@ class Raffle:
         self.__save()
 
         return winner
+
+    def remove_winner(self, user_name):
+        for winner in self.__winner_list:
+            if winner.user_name == user_name:
+                logger.debug('Remove {} from winner list'.format(user_name))
+                self.__winner_list.remove(winner)
+                self.__save()
+                break
 
     def __save(self):
         logger.debug('Save: {}'.format(self.__winner_csv_path))

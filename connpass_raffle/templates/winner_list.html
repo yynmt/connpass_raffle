@@ -15,9 +15,12 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th scope="col">提供元企業名</th>
+                <th scope="col">景品</th>
                 <th scope="col">ユーザー名</th>
                 <th scope="col">表示名</th>
                 <th scope="col">受付番号</th>
+                <th scope="col">削除</th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +29,15 @@
                 {% for j in i %}
                 <td>{{ j }}</td>
                 {% endfor %}
+                <td>
+                    {% if i[2] != '-' %}
+                    <a href="/winner_list/{{ i[2] }}">
+                        <div class="badge bg-secondary p-2">
+                            <i class="bi bi-trash-fill"></i>
+                        </div>
+                    </a>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
