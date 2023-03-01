@@ -33,9 +33,9 @@ $(function(){
 
     // 当選者の名前があるか否か(スタートボタンを押したか否か)
     if (name.length){
-        $('.start').prop("disabled", true); // スタートボタン無効化
+        $('.start').hide(); // スタートボタン無効化
     } else {
-        $('.stop').prop("disabled", true);  // ストップボタン無効化
+        $('.stop').hide();  // ストップボタン無効化
     }
 
     // ストップボタンでシャッフルを停止
@@ -44,54 +44,48 @@ $(function(){
         $('.rand_name').text(name);             // 当選者の名前を表示
         clearInterval(randStart);               // シャッフル停止
         $('.rand_name').fadeIn(250);
-        $(this).prop("disabled", true);         // ストップボタン無効化
-        $('.start').prop("disabled", false);    // スタートボタン有効化
+        $(this).hide();         // ストップボタン無効化
+        $('.start').show();    // スタートボタン有効化
     });
 });
 </script>
 
-<header>
-    <div class="container-fluid">
-        <form action="/raffle" method="POST">
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-4 py-5 px-0">
-                    <button type="submit" class="start btn btn-secondary btnx btn-lg fs-1 w-100 h-100 py-5">スタート</button>
-                </div>
-                <div class="col"></div>
-                <div class="col-4 py-5 px-0">
-                    <button type="button" class="stop btn btn-secondary btnx btn-lg fs-1 w-100 h-100 py-5">ストップ</button>
-                </div>
-                <div class="col"></div>
-            </div>
-        </form>
+<div id="main">
+        {% if item %}
+        <!-- 当選景品名表示部分 -->
+        <div class="item d-flex align-items-center justify-content-center w-100 display-2 text-center">{{ item }}</div>
+        <div class="provider d-flex align-items-center justify-content-center w-100 display-3 text-center">by {{ provider }}</div>
+        {% endif %}
+
+    <div class="center-block d-flex align-items-center justify-content-center display-1 rand_name">
+        <!-- 当選者名表示部分 -->
     </div>
-</header>
+</div>
 
-    {% if item %}
-    <!-- 当選景品名表示部分 -->
-    <div class="item d-flex align-items-center justify-content-center w-100 display-2 text-center">{{ item }}</div>
-    <div class="provider d-flex align-items-center justify-content-center w-100 display-3 text-center">by {{ provider }}</div>
-    {% endif %}
-
-<div class="center-block d-flex align-items-center justify-content-center display-1 rand_name">
-    <!-- 当選者名表示部分 -->
+<div class="buttonwrapper">
+    <form action="/raffle" method="POST">
+        <div class="buttons mx-auto">
+            <button type="submit" class="start btn btnx"></button>
+            <button type="button" class="stop btn btnx"></button>
+        </div>
+    </form>
 </div>
 
 <footer>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-1">
-                <a href="/participant_list" class="badge bg-secondary mx-2 my-3 p-2">
-                    <i class="bi bi-list-ul"></i> 抽選対象者一覧
-                </a>
-            </div>
+            <div class="col-2"></div>
             <div class="col-1">
                 <a href="/winner_list" class="badge bg-secondary mx-2 my-3 p-2">
                     <i class="bi bi-list-stars"></i> 当選者一覧
                 </a>
             </div>
-            <div class="col-9"></div>
+            <div class="col-1">
+                <a href="/participant_list" class="badge bg-secondary mx-2 my-3 p-2">
+                    <i class="bi bi-list-ul"></i> 抽選対象者一覧
+                </a>
+            </div>
+            <div class="col-6"></div>
 
             <div class="col-1">
             {% if id %}

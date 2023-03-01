@@ -5,6 +5,7 @@
     <title>抽選</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
         html {
             height: 100%;
@@ -14,47 +15,79 @@
             margin: 0;
             padding: 0;
             height: 100%;
+            background-image: url({{ url_for('static', filename='images/background.png') }});
         }
 
-        header {
-            position: sticky;
-            top: 0vh;
-            width: 100%;
-            margin: 10;
+        #main {
+            margin-top: 23vh;
         }
+
 
         footer {
             position: sticky;
-            top: 100vh;
+            top: 93vh;
             width: 100%;
             margin: 10;
         }
 
         .rand_name {
-            font-size: clamp(12px,8vw,500px);
+            font-size: 120px;
         }
 
         .provider {
-            font-size: clamp(12px,4vw,100px);
+            font-size: 60px;
         }
 
         .item {
-            font-size: clamp(12px,6vw,200px);
+            font-size: 100px;
         }
 
-        .btnx {
-            background: var(--bs-indigo);
+        .buttonwrapper {
+            position: absolute;
+            top: 68vh;
+            width: 100%;
+        }
+
+        .buttons {
+            width: 425px;
+            background-image: url({{ url_for('static', filename='images/stop.png') }});
+        }
+
+        .start, .stop {
+            width: 425px;
+            height: 125px;
+            background-repeat: no-repeat;
+        }
+
+        .start {
+            background-image: url({{ url_for('static', filename='images/start.png') }});
+        }
+
+        .stop {
+            background-image: url({{ url_for('static', filename='images/stop.png') }});
         }
 
         .btnx:hover{
             background: var(--bs-purple);
+            opacity: 0.8;
+        }
+
+        .listview {
+            position: absolute;
+            left: 16vw;
+            top: 10vh;
+            height: 80vh;
+            overflow: scroll;
+        }
+
+        .container {
+            
         }
     </style>
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-
 {% block body %}
 {% endblock %}
 
