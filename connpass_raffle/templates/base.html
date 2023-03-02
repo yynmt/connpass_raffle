@@ -50,7 +50,6 @@
 
         .buttons {
             width: 425px;
-            background-image: url({{ url_for('static', filename='images/stop.png') }});
         }
 
         .start, .stop {
@@ -61,10 +60,12 @@
 
         .start {
             background-image: url({{ url_for('static', filename='images/start.png') }});
+            display: none;
         }
 
         .stop {
             background-image: url({{ url_for('static', filename='images/stop.png') }});
+            display: none;
         }
 
         .btnx:hover{

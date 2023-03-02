@@ -15,37 +15,54 @@ $(function(){
     //グローバル変数
     var max_len = nameList.length - 1;
     var randStart;
-    var speed = 20; //シャッフル速度
+    var speed = 20;     // シャッフル速度
+    var delay_ms = 1000;   // ボタン押下後の無効時間(ミリ秒)
 
     // 当選者名シャッフル関数
-    //speedミリ秒毎に候補の文字列をシャッフルさせる
+    // speedミリ秒毎に候補の文字列をシャッフルさせる
     var randShuffle= function(){
-        //シャッフル表示用の乱数
+        // シャッフル表示用の乱数
         var random = Math.floor(Math.random() * (max_len + 1));
         $('.rand_name').text(nameList[random]);
     }
 
-    // 当選者名シャッフル開始
-    randStart = setInterval(randShuffle, speed);
-
     // 当選者の名前
-    let name = "{{ name }}"
+    let name = '{{ name }}';
 
     // 当選者の名前があるか否か(スタートボタンを押したか否か)
-    if (name.length){
-        $('.start').hide(); // スタートボタン無効化
-    } else {
-        $('.stop').hide();  // ストップボタン無効化
+    if (name.length){   // スタートを押された後(* -> /raffleのページ遷移時)
+        // 当選者名シャッフル開始
+        randStart = setInterval(randShuffle, speed);
+
+        $('.start').hide();                         // スタートボタン非表示
+        $('.stop').show();                          // ストップボタン表示
+        $('.stop').prop("disabled", true);          // ストップボタン無効化
+        setTimeout(function(){                      // ストップボタン有効化までdelay_msミリ秒待機
+            $('.stop').prop("disabled", false);     // ストップボタン有効化
+        },delay_ms);
+    } else {    // スタートが押される前(* -> /のページ遷移時)
+        $('.stop').hide();                          // ストップボタン非表示
+        $('.start').show();                         // スタートボタン表示
+        $('.start').prop("disabled", true);         // スタートボタン無効化
+        setTimeout(function(){                      // スタートボタン有効化までdelay_msミリ秒待機
+            $('.start').prop("disabled", false);    // スタートボタン有効化
+        },delay_ms);
     }
 
     // ストップボタンでシャッフルを停止
     $('.stop').click(function(){
-        $('.rand_name').hide();
-        $('.rand_name').text(name);             // 当選者の名前を表示
-        clearInterval(randStart);               // シャッフル停止
-        $('.rand_name').fadeIn(250);
-        $(this).hide();         // ストップボタン無効化
-        $('.start').show();    // スタートボタン有効化
+        $('.rand_name').hide();                     // 当選者の名前表示部分を非表示化
+        $('.rand_name').text(name);                 // 当選者の名前をセット
+        clearInterval(randStart);                   // シャッフル停止
+        $('.rand_name').fadeIn(250);                // 当選者の名前をフェードインで表示
+        $('.stop').prop("disabled", true);          // ストップボタン無効化
+        $(this).hide();                             // ストップボタン非表示
+
+        $('.start').show();                         // スタートボタン表示
+        $('.start').prop("disabled", true);         // スタートボタン無効化
+        setTimeout(function(){                      // スタートボタン有効化までdelay_msミリ秒待機
+            $('.start').prop("disabled", false);    // スタートボタン有効化
+        },delay_ms);
     });
 });
 </script>
@@ -94,6 +111,7 @@ $(function(){
                 </a>
             {% endif %}
             </div>
+            <div class="col-1"></div>
     </div>
 </footer>
 
