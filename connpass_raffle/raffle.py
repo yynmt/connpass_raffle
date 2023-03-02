@@ -18,7 +18,7 @@ class Raffle:
         # Connpassから取得できるCSVファイルのパス
         self.__part_csv_path = part_csv_path
         # 当選者を保存するCSVファイルのパス
-        self.__winner_csv_path = re.sub(r'\..+$', '_win.csv', str((Path(self.__part_csv_path).absolute())))
+        self.__winner_csv_path = re.sub(r'\..+$', '_win.csv', self.__part_csv_path)
         # 抽選対象のアイテムのリスト
         self.__item_list = []
         # 抽選対象のアイテムのCSVファイルのパス
