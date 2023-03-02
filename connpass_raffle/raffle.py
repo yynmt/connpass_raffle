@@ -7,6 +7,7 @@ from participant import Participant
 from item import Item
 
 logger = logging.getLogger(__name__)
+CSV_ENCODE = 'utf-8'
 
 
 class Raffle:
@@ -18,7 +19,7 @@ class Raffle:
         # Connpassから取得できるCSVファイルのパス
         self.__part_csv_path = part_csv_path
         # 当選者を保存するCSVファイルのパス
-        self.__winner_csv_path = re.sub(r'\..+$', '_win.csv', self.__part_csv_path)
+        self.__winner_csv_path = re.sub(r'\.csv$', '_win.csv', self.__part_csv_path)
         # 抽選対象のアイテムのリスト
         self.__item_list = []
         # 抽選対象のアイテムのCSVファイルのパス
@@ -47,7 +48,7 @@ class Raffle:
         if Path(self.__winner_csv_path).is_file():
             logger.debug('Load: {}'.format(self.__winner_csv_path))
             # 当選者の読み込み
-            with open(self.__winner_csv_path, encoding='cp932') as f:
+            with open(self.__winner_csv_path, encoding=CSV_ENCODE) as f:
                 reader = csv.reader(f)
 
                 # 1行ずつ読み込み
@@ -60,7 +61,7 @@ class Raffle:
 
         # 参加者の読み込み
         # ConnpassからダウンロードできるcsvファイルはShift-JIS
-        with open(self.__part_csv_path, encoding='cp932') as f:
+        with open(self.__part_csv_path, encoding=CSV_ENCODE) as f:
             logger.debug('Load: {}'.format(self.__part_csv_path))
             reader = csv.reader(f)
             # 1行目のヘッダーをスキップ
@@ -82,7 +83,7 @@ class Raffle:
                 # リストに参加者を追加
                 self.__participant_list.append(tmp_part)
 
-        with open(self.__item_csv_path, encoding='cp932') as f:
+        with open(self.__item_csv_path, encoding=CSV_ENCODE) as f:
             logger.debug('Load: {}'.format(self.__item_csv_path))
             reader = csv.reader(f)
             # 1行目のヘッダーをスキップ
@@ -120,7 +121,7 @@ class Raffle:
     def __save(self):
         logger.debug('Save: {}'.format(self.__winner_csv_path))
         # 当選者の保存
-        with open(self.__winner_csv_path, 'w', encoding='cp932', newline='') as f:
+        with open(self.__winner_csv_path, 'w', encoding=CSV_ENCODE, newline='') as f:
             writer = csv.writer(f)
             rows = []
             for part in self.__winner_list:
