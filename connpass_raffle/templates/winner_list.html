@@ -3,17 +3,17 @@
 {% block body %}
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const linkConfirms = Array.prototype.slice.call(document.querySelectorAll('.link_confirm'));
-    linkConfirms.forEach(function(linkConfirm) {
-        linkConfirm.addEventListener('click', function(event) {
+jQuery(function($) {
+    const linkConfirms = $('.link_confirm');
+    if(linkConfirms.length) {
+        linkConfirms.click(function(event) {
             const resultConfirm = confirm('当選者を削除します。よろしいですか？');
             if(!resultConfirm) {
                 event.preventDefault();
             }
-        });
-    });
-}, false);
+        })
+    }
+});
 </script>
 
 <div class="listview container">
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td>
                     {% if i[2] != '-' %}
                     <a href="/winner_list/{{ i[2] }}" class="link_confirm">
-                        <div class="badge bg-secondary p-2">
+                        <div class="badge bg-secondary p-2 m-2">
                             <i class="bi bi-trash-fill"></i>
                         </div>
                     </a>
