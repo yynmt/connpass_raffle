@@ -13,14 +13,76 @@ jQuery(function($) {
             }
         })
     }
+
+    searchWord = function(input){
+        var searchText = input.val(); // 検索ボックスに入力された値
+            //targetText;
+
+        //
+        if(searchText.length) {
+            var regExp = new RegExp(searchText);
+
+            $('.table').find('tr').hide().each(function(){
+                var tr = $(this);
+                if($(this).find('th').length) {
+                    tr.show();
+                }
+                $(this).find('td').each(function(){
+                    if ($(this).text().match(regExp)) {
+                        tr.show();
+                    }
+                })
+            });
+        } else {
+            $('.table').find('tr').show();
+        }
+    };
+
+    // searchWordの実行
+    $('#search-text').on('input', function() {
+        input = $(this);
+        searchWord(input);
+    });
+
+    //Enterキー無効化
+    $('#search-text').keypress(function(e) {
+        if (e.keyCode == 13) {  // Enterキー(13)
+            return false;
+        }
+    });
+
+    // テキストフォームのクリア
+    $('#search-text').keyup(function(e) {
+        if (e.keyCode == 46) {  // Deleteキー(46)
+            $("#search-text").val("");
+            input = $('#search-text')
+            searchWord(input);
+            return false;
+        }
+    });
+
+    // テキストフォームからフォーカスが外れた時に再フォーカス
+    $('#search-text').blur(function(){
+        $(this).focus();
+    });
+
+    // 初期からテキストフォームにフォーカス
+    $('#search-text').focus();
 });
 </script>
+
+<div class="search container">
+    <form>
+        <input type="text" id="search-text" placeholder="検索ワードを入力">
+    </form>
+</div>
 
 <div class="listview container">
     <h3> 当選者数: <span class="badge bg-dark rounded-pill">{{ sum }}</span></h3>
     <table class="table table-striped">
         <thead>
             <tr>
+                <th scope="col">景品管理ID</th>
                 <th scope="col">提供元企業名</th>
                 <th scope="col">景品</th>
                 <th scope="col">ユーザー名</th>
@@ -37,7 +99,7 @@ jQuery(function($) {
                 {% endfor %}
                 <td>
                     {% if i[2] != '-' %}
-                    <a href="/winner_list/{{ i[2] }}" class="link_confirm">
+                    <a href="/winner_list/{{ i[3] }}" class="link_confirm">
                         <div class="badge bg-secondary p-2 m-2">
                             <i class="bi bi-trash-fill"></i>
                         </div>

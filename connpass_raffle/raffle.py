@@ -83,6 +83,7 @@ class Raffle:
                 # リストに参加者を追加
                 self.__participant_list.append(tmp_part)
 
+        # 景品の読み込み
         with open(self.__item_csv_path, encoding=CSV_ENCODE) as f:
             logger.debug('Load: {}'.format(self.__item_csv_path))
             reader = csv.reader(f)
@@ -92,8 +93,9 @@ class Raffle:
             # 1行ずつ読み込み
             for row in reader:
                 tmp_item = Item()
-                tmp_item.provider = row[0]
-                tmp_item.name = row[1]
+                tmp_item.id = row[0]
+                tmp_item.provider = row[1]
+                tmp_item.name = row[2]
 
                 # リストにアイテムを追加
                 self.__item_list.append(tmp_item)

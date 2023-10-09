@@ -55,6 +55,7 @@ class Core:
             row = []
             if item is not None:
                 row.extend([
+                    item.id,
                     item.provider,
                     item.name,
                 ])
