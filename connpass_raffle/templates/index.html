@@ -68,11 +68,11 @@ $(function(){
 </script>
 
 <div id="main">
-        {% if item %}
-        <!-- 当選景品名表示部分 -->
-        <div class="item d-flex align-items-center justify-content-center w-100 display-2 text-center">{{ item }}</div>
-        <div class="provider d-flex align-items-center justify-content-center w-100 display-3 text-center">by {{ provider }}</div>
-        {% endif %}
+    {% if item %}
+    <!-- 当選景品名表示部分 -->
+    <div class="item d-flex align-items-center justify-content-center w-100 display-2 text-center">{{ item }}</div>
+    <div class="provider d-flex align-items-center justify-content-center w-100 display-3 text-center">by {{ provider }}</div>
+    {% endif %}
 
     <div class="center-block d-flex align-items-center justify-content-center display-1 rand_name">
         <!-- 当選者名表示部分 -->
