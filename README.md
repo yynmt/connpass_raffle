@@ -22,3 +22,11 @@ conda activate tenkey_raffle
 python main.py
 ```
 最後に `127.0.0.1:5000` に Web ブラウザからアクセスしてください。
+
+## Dockerを使用しての起動方法
+Docker環境で起動する場合は以下の手順で起動できます。
+```
+docker build -t connpass_raffle .
+docker run -p 8080:5000 connpass_raffle
+```
+`[起動しているホストのIPアドレス]:8080`(例:`127.0.0.1:8080`)にWebブラウザからアクセスしてください。
