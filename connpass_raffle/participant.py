@@ -19,6 +19,8 @@ class Participant:
         self.status_part = ''
         # 出欠ステータス
         self.status_att = ''
+        # 出席日時
+        self.date_att = ''
         # PayPal取引ID
         self.paypal_id = ''
         # 請求書ID
@@ -43,14 +45,16 @@ class Participant:
         self.status_part = row[5]
         # 出欠ステータス
         self.status_att = row[6]
+        # 出席日時
+        self.date_att = row[7]
         # PayPal取引ID
-        self.paypal_id = row[7]
+        self.paypal_id = row[8]
         # 請求書ID
-        self.invoice_id = row[8]
+        self.invoice_id = row[9]
         # 更新日時
-        self.update_time = row[9]
+        self.update_time = row[10]
         # 受付番号
-        self.rcpt_number = row[10]
+        self.rcpt_number = row[11]
 
     def __eq__(self, other):
         if not isinstance(other, Participant):

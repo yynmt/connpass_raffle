@@ -135,6 +135,7 @@ class Raffle:
                     part.comment,           # コメント
                     part.status_part,       # 参加ステータス
                     part.status_att,        # 出欠ステータス
+                    part.date_att,          # 出席日時
                     part.paypal_id,         # PayPal取引ID
                     part.invoice_id,        # 請求書ID
                     part.update_time,       # 更新日時
