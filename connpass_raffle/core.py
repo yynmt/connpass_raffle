@@ -18,7 +18,8 @@ class Core:
 
     @staticmethod
     def run():
-        app.run(debug=False, host='0.0.0.0', port=5000)
+        # app.run(debug=False, host='0.0.0.0', port=5000)
+        app.run(debug=False, host='0.0.0.0', port=8080)
         # app.run(debug=True, host='0.0.0.0', port=5000)
         # app.run(debug=False, host='0.0.0.0', port=80)   # 実行時要root権限
 
@@ -97,13 +98,19 @@ class Core:
                 # 抽選対象の景品名
                 item_idx = len(raffle.winner_list) - 1
                 print(item_idx)
+                provider = ''
+                item = []
+
                 if item_idx < len(raffle.item_list):
                     provider = raffle.item_list[item_idx].provider
-                    item = raffle.item_list[item_idx].name
-                else:
-                    provider = ''
-                    item = ''
-                logger.debug('{}({}) -> {}({}):{}'.format(item, provider, name, id, num))
+                    item = raffle.item_list[item_idx].name.split('<br>')
+                    # # <br>が含まれていれば分割して2行目を取り出す
+                    # item_split = item_name1.split(r'<br>')
+                    # if len(item_split) > 1:
+                    #     item_name1 = item_split[0]
+                    #     item_name2 = item_split[1]
+
+                logger.debug(f'{item_idx}: {"".join(item)}({provider}) -> {name}({id}):{num}')
 
                 return render_template(
                     'index.html',
